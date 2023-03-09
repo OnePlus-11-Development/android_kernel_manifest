@@ -30,10 +30,26 @@
 
   <superproject name="kernel/superproject" remote="aosp" revision="common-android13-5.15" />
 
+  <project path="build/kernel" name="kernel/build" >
+    <linkfile src="kleaf/bazel.sh" dest="tools/bazel" />
+    <linkfile src="kleaf/bazel.WORKSPACE" dest="WORKSPACE" />
+    <linkfile src="build.sh" dest="build/build.sh" />
+    <linkfile src="build_abi.sh" dest="build/build_abi.sh" />
+    <linkfile src="build_test.sh" dest="build/build_test.sh" />
+    <linkfile src="build_utils.sh" dest="build/build_utils.sh" />
+    <linkfile src="config.sh" dest="build/config.sh" />
+    <linkfile src="envsetup.sh" dest="build/envsetup.sh" />
+    <linkfile src="_setup_env.sh" dest="build/_setup_env.sh" />
+    <linkfile src="multi-switcher.sh" dest="build/multi-switcher.sh" />
+    <linkfile src="abi" dest="build/abi" />
+    <linkfile src="static_analysis" dest="build/static_analysis" />
+  </project>
+
   <project name="msm-5.15" path="private/msm-oplus" remote="OPLUS">
     <linkfile dest="build.config" src="build.config.msm.oplus" />
     <linkfile dest="build_oplus.sh" src="build_oplus.sh" />
     <linkfile dest="build_mixed.sh" src="build_mixed.sh" />
+    <linkfile src="." dest=".source_date_epoch_dir" />
   </project>
 
   <project path="common" name="kernel/common" revision="android13-5.15" >
@@ -57,8 +73,6 @@
   <project path="build/bazel_common_rules" name="platform/build/bazel_common_rules" />
   <project path="external/stardoc" name="platform/external/stardoc" />
   <project path="external/python/absl-py" name="platform/external/python/absl-py" />
-
-  <project path="build" name="kernel_build" remote="OPLUS" />
   
   <project name="kernel_msm-oplus-extra_devicetree" path="private/msm-oplus/arch/arm64/boot/dts/vendor" remote="OPLUS" />
   <project name="vendor_qcom_proprietary_audio-devicetree" path="private/msm-oplus/arch/arm64/boot/dts/vendor/qcom/audio" remote="OPLUS" />
