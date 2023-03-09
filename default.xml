@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <remote  name="aosp" fetch=".." review="https://android-review.googlesource.com/" />
-  <default revision="master-kernel-build-2022" remote="aosp" sync-j="4" />
+  <remote  name="aosp"
+      fetch="https://android.googlesource.com/" />
+  <default revision="master-kernel-build-2022" 
+      remote="aosp"/>
+
+  <remote name="github"
+      fetch="https://github.com/"
+      sync-c="true"
+      sync-tags="false" />
+ 
+  <remote name="OPLUS"
+      fetch="https://github.com/OnePlus-11-Development/"
+      sync-c="true"
+      sync-tags="false"
+      revision="thirteen" />
+
+  <remote name="clo_vendor_kailua"
+      fetch="https://git.codelinaro.org/clo/la/"
+      sync-c="true"
+      sync-tags="false"
+      review="codelinaro.org"
+      revision="refs/tags/LA.VENDOR.13.2.0.r1-13200-KAILUA.QSSI14.0" />
+          
+  <remote name="clo"
+      fetch="https://git.codelinaro.org/clo/la/"
+      sync-c="true"
+      sync-tags="false" />
 
   <superproject name="kernel/superproject" remote="aosp" revision="common-android13-5.15" />
 
-  <project path="build/kernel" name="kernel/build" >
-    <linkfile src="kleaf/bazel.sh" dest="tools/bazel" />
-    <linkfile src="kleaf/bazel.WORKSPACE" dest="WORKSPACE" />
-    <linkfile src="build.sh" dest="build/build.sh" />
-    <linkfile src="build_abi.sh" dest="build/build_abi.sh" />
-    <linkfile src="build_test.sh" dest="build/build_test.sh" />
-    <linkfile src="build_utils.sh" dest="build/build_utils.sh" />
-    <linkfile src="config.sh" dest="build/config.sh" />
-    <linkfile src="envsetup.sh" dest="build/envsetup.sh" />
-    <linkfile src="_setup_env.sh" dest="build/_setup_env.sh" />
-    <linkfile src="multi-switcher.sh" dest="build/multi-switcher.sh" />
-    <linkfile src="abi" dest="build/abi" />
-    <linkfile src="static_analysis" dest="build/static_analysis" />
+  <project name="msm-5.15" path="private/msm-oplus" remote="OPLUS">
+    <linkfile dest="build.config" src="build.config.msm.oplus" />
+    <linkfile dest="build_oplus.sh" src="build_oplus.sh" />
+    <linkfile dest="build_mixed.sh" src="build_mixed.sh" />
   </project>
+
   <project path="common" name="kernel/common" revision="android13-5.15" >
     <linkfile src="." dest=".source_date_epoch_dir" />
   </project>
+
   <project path="kernel/tests" name="kernel/tests" />
   <project path="kernel/configs" name="kernel/configs" />
   <project path="common-modules/virtual-device" name="kernel/common-modules/virtual-device" revision="android13-5.15" />
@@ -39,4 +57,30 @@
   <project path="build/bazel_common_rules" name="platform/build/bazel_common_rules" />
   <project path="external/stardoc" name="platform/external/stardoc" />
   <project path="external/python/absl-py" name="platform/external/python/absl-py" />
+
+  <project path="build" name="kernel_build" remote="OPLUS" />
+  
+  <project name="kernel_msm-oplus-extra_devicetree" path="private/msm-oplus/arch/arm64/boot/dts/vendor" remote="OPLUS" />
+  <project name="vendor_qcom_proprietary_audio-devicetree" path="private/msm-oplus/arch/arm64/boot/dts/vendor/qcom/audio" remote="OPLUS" />
+  <project name="vendor_qcom_proprietary_camera-devicetree" path="private/msm-oplus/arch/arm64/boot/dts/vendor/qcom/camera" remote="OPLUS" />
+  <project name="vendor_qcom_proprietary_display-devicetree" path="private/msm-oplus/arch/arm64/boot/dts/vendor/qcom/display" remote="OPLUS" />
+  <project name="vendor_qcom_proprietary_eva-devicetree" path="private/msm-oplus/arch/arm64/boot/dts/vendor/qcom/eva" remote="OPLUS" />
+  <project name="vendor_qcom_proprietary_mmrm-devicetree" path="private/msm-oplus/arch/arm64/boot/dts/vendor/qcom/mmrm" remote="OPLUS" />
+  <project name="vendor_qcom_proprietary_video-devicetree" path="private/msm-oplus/arch/arm64/boot/dts/vendor/qcom/video" remote="OPLUS" />
+
+  <project name="kernel_msm-modules_audio-kernel" path="private/msm-modules/audio-kernel" remote="OPLUS" />
+  <project name="kernel_msm-modules_camera-kernel" path="private/msm-modules/camera-kernel" remote="OPLUS" />
+  <project name="kernel_msm-modules_dataipa" path="private/msm-modules/dataipa" remote="OPLUS" />
+  <project name="kernel_msm-modules_display-kernel" path="private/msm-modules/display-kernel" remote="OPLUS" />
+  <project name="kernel_msm-modules_graphics-kernel" path="private/msm-modules/graphics-kernel" remote="OPLUS" />
+  <project name="kernel_msm-modules_video-driver" path="private/msm-modules/video-driver" remote="OPLUS" />
+
+  <project name="kernel_msm-modules_wlan_qcacld-3.0" path="private/msm-modules/wlan/qcacld-3.0" remote="OPLUS" />
+  <project name="kernel_msm-modules_datarmnet" path="private/msm-modules/datarmnet" remote="OPLUS" />
+  <project name="kernel_msm-modules_datarmnet-ext" path="private/msm-modules/datarmnet-ext" remote="OPLUS" />
+
+  <project name="platform/vendor/qcom-opensource/wlan/fw-api" path="private/msm-modules/wlan/fw-api" remote="clo_vendor_kailua" />
+  <project name="platform/vendor/qcom-opensource/wlan/qca-wifi-host-cmn" path="private/msm-modules/wlan/qca-wifi-host-cmn" remote="clo_vendor_kailua" />
+  
+  <project path="external/dtc" name="kernel_platform/external/dtc" remote="clo" revision="deb932d81061c472e8bb2648a409a456e6e84997" />
 </manifest>
